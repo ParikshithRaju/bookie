@@ -1,0 +1,27 @@
+{% macro render_field(field) %}
+        {{  field(**kwargs)|safe  }}
+{% endmacro %}
+
+
+{% macro render_element(field,id,placeholder) %}
+    {% if field.errors %}
+      <div class="from-group">
+        <label for="{{id}}" class="error-text">{{ field.label }}</label>
+        {{  render_field(field,class="form-control error",id=id,placeholder=placeholder) }}
+      </div>
+      <div>
+        <ul>
+          {% for error in field.errors %}
+          <li  class="error-text">
+            {{ error }}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% else %}
+      <div class="form-group">
+        <label for="{{id}}">{{ field.label}}</label>
+          {{ render_field(field,class="form-control",id=id,placeholder=placeholder) }}
+      </div>
+    {% endif %}
+{% endmacro %}

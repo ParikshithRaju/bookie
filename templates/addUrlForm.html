@@ -1,0 +1,12 @@
+{% from "macros.html" import render_element %}
+{% extends "index.html" %}
+{% block mainContent %}
+<div class="container">
+  <form method="post">
+    {{form.hidden_tag()}}
+    {{ render_element(form.url,"bookmark","ex: https://www.facebook.com") }}
+    {{ render_element(form.description,"description","ex: My favorite social media site") }}
+    <input type="submit" value="Add" class ="btn btn-primary">
+  </form>
+</div>
+{% endblock %}
