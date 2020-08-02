@@ -1,5 +1,6 @@
 import storing
 from datetime import datetime
+from sqlalchemy import desc
 
 db = storing.db
 
@@ -10,5 +11,9 @@ class BookmarkDB(db.Model):
     date = db.Column(db.DateTime, default=datetime.utcnow)
     description = db.Column(db.String(300))
 
+    @staticmethod
+    def newest(num):
+        return BookmarkDB.query.order_by(desc(BookmarkDB.date)).limit(num)
+
     def __repr__(self):
-        return f"<Bookmark '{self.description}':'{self.url}'"
+        return f"<Bookmark '{self.description}':'{self.url}'>"

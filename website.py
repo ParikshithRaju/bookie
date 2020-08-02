@@ -5,7 +5,6 @@ from flask_sqlalchemy import SQLAlchemy
 import models
 from datetime import datetime
 
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "parikshithcr"
 
@@ -17,7 +16,7 @@ db = SQLAlchemy(app)
 @app.route('/index')
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('index.html', newest=models.BookmarkDB.newest(3).all())
 
 
 @app.route('/add', methods=['GET', 'POST'])
@@ -25,7 +24,7 @@ def addUrl():
     form = BookmarkForm()
     if form.validate_on_submit():
         db.session.add(
-            models.BookmarkDB(url=form['url'].data,date=datetime.utcnow(),description=form['description'].data)
+            models.BookmarkDB(url=form['url'].data, date=datetime.utcnow(), description=form['description'].data)
         )
         db.session.commit()
         flash('Successfully Added bookmark ' + form.description.data)

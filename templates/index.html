@@ -65,11 +65,24 @@
       </div>
     </div>
     {% endblock %}
-
-
-
+     {% block recentlyAdded %}
+        <div class="container">
+        <h3>Recently added</h3>
+        <div class="row">
+        {% for bookmark in newest %}
+        <div class="card col-md-4 col-xs-12 col-sm-6" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{ bookmark.description }}</h5>
+                <p class="card-text">{{ bookmark.url }}</p>
+                <a href="{{ bookmark.url }}" target="_blank" class="btn btn-primary">Go to link</a>
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+        </div>
+    {% endblock %}
     {% block footer %}
-      <footer>
+      <footer style="margin-top: 20px">
         <p class="text-center">&copy; Company 2015</p>
       </footer>
     {% endblock %}
