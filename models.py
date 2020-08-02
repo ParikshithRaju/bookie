@@ -1,8 +1,6 @@
-import storing
+from __init__ import db
 from datetime import datetime
 from sqlalchemy import desc
-
-db = storing.db
 
 
 class BookmarkDB(db.Model):
