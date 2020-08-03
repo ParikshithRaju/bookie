@@ -1,6 +1,10 @@
-from __init__ import db
+import sys
 from datetime import datetime
+sys.path.append('..')
+
 from sqlalchemy import desc
+
+from bookie import db
 
 
 class BookmarkDB(db.Model):
@@ -15,3 +19,11 @@ class BookmarkDB(db.Model):
 
     def __repr__(self):
         return f"<Bookmark '{self.description}':'{self.url}'>"
+
+
+class UserDB(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text, nullable=False)
+
+    def __repr__(self):
+        return f'Username: {self.name}'

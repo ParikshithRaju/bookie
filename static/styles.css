@@ -1,3 +1,14 @@
-.form-group{
-    margin-top: 5px;
+.form-group {
+    margin-top: 10px;
+}
+
+.error {
+    color: red;
+    border: solid red;
+}
+
+.error-text {
+    margin-top: 2px;
+    color: red;
+    text-decoration: none;
 }

@@ -1,7 +1,14 @@
-from forms import BookmarkForm
-from models import BookmarkDB
-from flask import render_template, flash, redirect,url_for
+import sys
 from datetime import datetime
+
+sys.path.append('..')
+sys.path.append('.')
+
+from flask import render_template, flash, redirect, url_for
+
+from bookie import app, db
+from models import BookmarkDB
+from forms import BookmarkForm
 
 
 @app.route('/index')
