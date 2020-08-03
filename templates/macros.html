@@ -25,3 +25,19 @@
       </div>
     {% endif %}
 {% endmacro %}
+
+{% macro render_cards(bookmarks) %}
+<div class="container">
+        <div class="row">
+            {% for bookmark in bookmarks %}
+              <div class="card col-md-4 col-xs-12 col-sm-6" style="width: 18rem;">
+                  <div class="card-body">
+                      <h5 class="card-title">{{ bookmark.description }}</h5>
+                      <p class="card-text">{{ bookmark.url }}</p>
+                      <a href="{{ bookmark.url }}" target="_blank" class="btn btn-primary">Go to link</a>
+                  </div>
+              </div>
+            {% endfor %}
+        </div>
+</div>
+{% endmacro %}

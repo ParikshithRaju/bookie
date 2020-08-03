@@ -1,0 +1,32 @@
+{% extends "index.html" %}
+{% from "macros.html" import render_element %}
+{% block mainContent %}
+<div class="container" id="login-page-box">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category,message in messages %}
+                {% if category=="error" %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                    </div>
+                {% else %}
+                    <div class="alert alert-primary" role="alert">
+                        {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form method="post">
+        {{form.hidden_tag()}}
+        {{ render_element(form.email,"email","ex: abc@xyz.com ") }}
+        {{ render_element(form.password,"password") }}
+        <div class="form-check" style="margin-bottom: 5px">
+        {{ form.remember_me(class="form-check-input") }} {{ form.remember_me.label(class="form-check-label") }}
+        </div>
+    <input type="submit" value="Log In" class ="btn btn-primary">
+  </form>
+</div>
+{% endblock %}
+{% block bookmarks %}
+{% endblock %}

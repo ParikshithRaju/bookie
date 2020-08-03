@@ -1,0 +1,16 @@
+{% extends "index.html" %}
+{% from "macros.html" import render_element %}
+{% block mainContent %}
+<div class="container">
+    <form method="post">
+        {{form.hidden_tag()}}
+        {{ render_element(form.name,"name","ex: Parikshith C R") }}
+        {{ render_element(form.email,"email","ex: abc@xyz.com ") }}
+        {{ render_element(form.password,"password") }}
+        {{ render_element(form.confirm_password,"confirm_password") }}
+    <input type="submit" value="Sign Up" class ="btn btn-primary">
+  </form>
+</div>
+{% endblock %}
+{% block bookmarks %}
+{% endblock %}
