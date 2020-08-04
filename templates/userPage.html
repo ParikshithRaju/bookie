@@ -1,0 +1,16 @@
+{% extends "index.html" %}
+
+{% block mainContent %}
+    <div class="container">
+        <h3>Your Bookmarks:</h3>
+        {% if user.bookmarks.count()>0 %}
+            {% with bookmarks=user.bookmarks.all() %}
+                {% include "bookmark_list.html" %}
+            {% endwith %}
+        {% else %}
+            No bookmarks yet.
+        {% endif %}
+    </div>
+{% endblock %}
+{% block recent_bookmarks %}
+{% endblock %}

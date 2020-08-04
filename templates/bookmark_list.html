@@ -1,0 +1,18 @@
+<ul class="bookmarks">
+    <div class="row">
+        {% for bookmark in bookmarks %}
+                    <div class="col-md-6 col-sm-12 col-lg-4" style="margin-top: 10px">
+                        <div class="card" style="padding: 5px">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ bookmark.description | truncate(50,killwords=True) }}</h5>
+                                <p class="card-text"><a href={{ bookmark.url }} target="_blank"> {{bookmark.url | truncate(50,killwords=True) }} </a></p>
+                                <a href={{ bookmark.url }} class="btn btn-dark" target="_blank">Visit link</a>
+                                <div class="card-footer">
+                                    Added {{ moment(bookmark.date).fromNow() }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        {% endfor %}
+    </div>
+</ul>

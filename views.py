@@ -22,7 +22,7 @@ def load_user(userid):
 @app.route('/')
 def home():
     if current_user.is_authenticated:
-        return render_template('index.html', bookmarks=current_user.bookmarks.order_by(desc(bookmarkDB.date)),
+        return render_template('index.html', bookmarks=current_user.bookmarks.order_by(desc(bookmarkDB.date)).limit(3),
                                user=current_user)
     else:
         return render_template('index.html', user=current_user)
@@ -44,7 +44,7 @@ def signup():
         )
         db.session.commit()
         flash(f"{form.name.data} you are successfully signed up")
-        return redirect(url_for('home'))
+        return redirect(url_for('login'))
     return render_template("signup.html", form=form, user=current_user)
 
 
@@ -73,3 +73,9 @@ def addUrl():
         print(request.args)
         return redirect(url_for('home'))
     return render_template('addUrlForm.html', form=form, user=current_user)
+
+
+@app.route('/user/<userid>')
+@login_required
+def user(userid):
+    return render_template('userPage.html', user=userDB.query.get(userid))

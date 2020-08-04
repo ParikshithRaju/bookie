@@ -31,5 +31,6 @@ class userDB(db.Model,UserMixin):
     password = db.Column(db.Text, nullable=False)
     bookmarks = db.relationship('bookmarkDB', backref='user', lazy='dynamic')
 
+
     def __repr__(self):
         return f'Username: {self.name}'

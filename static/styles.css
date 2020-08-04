@@ -16,3 +16,14 @@
 #login-page-box{
     margin-top: 5px;
 }
+
+ul{
+       list-style-type: none;
+}
+.card-footer{
+margin-top: 5px;
+}
+
+.container h3{
+    margin-top: 30px;
+}
