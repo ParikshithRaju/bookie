@@ -2,12 +2,13 @@
 {% extends "index.html" %}
 {% block mainContent %}
 <div class="container">
-  <h3 class="text-center">Add bookmark</h3>
+  <h3 class="text-center">{{ title }}</h3>
   <form method="post">
     {{form.hidden_tag()}}
     {{ render_element(form.url,"bookmark","ex: https://www.facebook.com") }}
     {{ render_element(form.description,"description","ex: My favorite social media site") }}
-    <input type="submit" value="Add" class ="btn btn-primary">
+    {{ render_element(form.tags,"tags","ex: social media,favaorites") }}
+    <input type="submit" {% if title=="Edit bookmark" %} value="Edit" {% else %} value="Add" {% endif %} class ="btn btn-primary">
   </form>
 </div>
 {% endblock %}

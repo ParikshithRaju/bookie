@@ -33,11 +33,37 @@
               <div class="card col-md-4 col-xs-12 col-sm-6" style="width: 18rem;">
                   <div class="card-body">
                       <h5 class="card-title">{{ bookmark.description | truncate(50,killwords=True) }}</h5>
-                      <p class="card-text">{{ bookmark.url | truncate(50,killwords=True) }}</p>
+                      <p class="card-text">{{ bookmark.url | truncate(50,killwords=True) }}
+                          <br>
+                      Tags:
+                                {% for tag in bookmark._tags.all() %}
+                                <a href={{ url_for("tagView",tagid=tag.id) }}><span>#{{ tag.name }}</span></a>
+                                {% endfor %}
+                      </p>
                       <a href="{{ bookmark.url }}" target="_blank" class="btn btn-dark">Go to link</a>
                   </div>
               </div>
             {% endfor %}
         </div>
 </div>
+{% endmacro %}
+
+{% macro render_flashes() %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category,message in messages %}
+                {% if category=="error" %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                    </div>
+                {% else %}
+                    <div class="alert alert-primary" role="alert">
+                        {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
 {% endmacro %}

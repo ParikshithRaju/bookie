@@ -1,23 +1,9 @@
 {% extends "index.html" %}
-{% from "macros.html" import render_element %}
+{% from "macros.html" import render_element,render_flashes %}
 {% block mainContent %}
 <div class="container" id="login-page-box">
     <h3 class="text-center">Login</h3>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category,message in messages %}
-                {% if category=="error" %}
-                    <div class="alert alert-danger" role="alert">
-                        {{ message }}
-                    </div>
-                {% else %}
-                    <div class="alert alert-primary" role="alert">
-                        {{ message }}
-                    </div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+    {{ render_flashes() }}
     <form method="post">
         {{form.hidden_tag()}}
         {{ render_element(form.email,"email","ex: abc@xyz.com ") }}

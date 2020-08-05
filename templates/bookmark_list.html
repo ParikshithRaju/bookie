@@ -5,8 +5,15 @@
                         <div class="card" style="padding: 5px">
                             <div class="card-body">
                                 <h5 class="card-title">{{ bookmark.description | truncate(50,killwords=True) }}</h5>
-                                <p class="card-text"><a href={{ bookmark.url }} target="_blank"> {{bookmark.url | truncate(50,killwords=True) }} </a></p>
-                                <a href={{ bookmark.url }} class="btn btn-dark" target="_blank">Visit link</a>
+                                <p class="card-text"><a href={{ bookmark.url }} target="_blank"> {{bookmark.url | truncate(50,killwords=True) }} </a>
+                                    <br>
+                                    Tags:
+                                    {% for tag in bookmark._tags.all() %}
+                                    <a href={{ url_for("tagView",tagid=tag.id) }}><span>#{{ tag.name }}</span></a>
+                                    {% endfor %}
+                                </p>
+                                <a href={{ bookmark.url }} class="btn btn-dark mr-auto" target="_blank">Visit link</a>
+                                <a href={{ url_for("editUrl",bookmarkid=bookmark.id) }} class="btn btn-info ml-auto">Edit</a>
                                 <div class="card-footer">
                                     Added {{ moment(bookmark.date).fromNow() }}
                                 </div>

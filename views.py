@@ -9,7 +9,7 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, login_required, current_user, logout_user
 
 from bookie import app, db, bcrypt, login_manager
-from models import bookmarkDB, userDB
+from models import bookmarkDB, userDB, tagDB
 from forms import BookmarkForm, SignupForm, LoginForm
 
 
@@ -66,16 +66,35 @@ def addUrl():
     if form.validate_on_submit():
         db.session.add(
             bookmarkDB(url=form['url'].data, date=datetime.utcnow(), description=form['description'].data
-                       , user=current_user)
+                       , tags=form['tags'].data, user=current_user)
         )
         db.session.commit()
         flash('Successfully Added bookmark ' + form.description.data)
         print(request.args)
         return redirect(url_for('home'))
-    return render_template('addUrlForm.html', form=form, user=current_user)
+    return render_template('addUrlForm.html', form=form, user=current_user, title="Add Bookmark")
+
+
+@app.route('/edit/<int:bookmarkid>', methods=["GET", "POST"])
+@login_required
+def editUrl(bookmarkid):
+    bookmark = bookmarkDB.query.get(bookmarkid)
+    form = BookmarkForm(obj=bookmark)
+    if form.validate_on_submit():
+        form.populate_obj(bookmark)
+        db.session.commit()
+        flash("Successfully edited the bookmark")
+        return redirect(url_for("user", userid=current_user.id))
+    return render_template('addUrlForm.html', form=form, user=current_user, title="Edit bookmark")
 
 
 @app.route('/user/<userid>')
 @login_required
 def user(userid):
     return render_template('userPage.html', user=userDB.query.get(userid))
+
+
+@app.route('/tag/<int:tagid>')
+@login_required
+def tagView(tagid):
+    return render_template('tagPage.html', user=current_user, tag=tagDB.query.get(tagid))

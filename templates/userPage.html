@@ -1,7 +1,10 @@
 {% extends "index.html" %}
+{% from "macros.html" import render_flashes %}
+
 
 {% block mainContent %}
     <div class="container">
+         {{ render_flashes() }}
         <h3>Your Bookmarks:</h3>
         {% if user.bookmarks.count()>0 %}
             {% with bookmarks=user.bookmarks.all() %}

@@ -7,7 +7,7 @@ from bookie import bcrypt
 
 from flask_wtf import FlaskForm
 from wtforms.fields import StringField, PasswordField, BooleanField
-from wtforms.validators import DataRequired, url, Length, Email, ValidationError
+from wtforms.validators import DataRequired, url, Length, Email, ValidationError, regexp
 from wtforms.fields.html5 import EmailField, URLField
 from flask import flash
 
@@ -15,6 +15,7 @@ from flask import flash
 class BookmarkForm(FlaskForm):
     url = URLField('URL:', validators=[DataRequired(), url()])
     description = StringField('Description:')
+    tags = StringField("Tags:")
 
 
 class SignupForm(FlaskForm):
@@ -41,6 +42,9 @@ class LoginForm(FlaskForm):
 
     def validate(form):
         user = userDB.query.filter_by(email=form.email.data).first()
+        print(user.password)
+        if user and form.password.data == user.password:
+            return True
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             return True
         flash("Incorrect password or email", "error")
