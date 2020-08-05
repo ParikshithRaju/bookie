@@ -78,6 +78,25 @@
     {% endif %}
     {% endblock %}
 
+    {% block most_used_tags %}
+    {% if user.is_authenticated %}
+    <div class="container">
+        <h3>Your most used tags:</h3>
+        {% if most_used_tags %}
+            <ul>
+                {% for tag in most_used_tags %}
+                <li>
+                    <a href={{ url_for("tagView",tagid=tag.id) }}> #{{ tag.name }} </a>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            You have no tags yet.
+        {% endif %}
+    </div>
+    {% endif %}
+    {% endblock %}
+
 
     {% block footer %}
     <footer style="margin-top: 20px">

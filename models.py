@@ -46,6 +46,17 @@ class userDB(db.Model, UserMixin):
     password = db.Column(db.Text, nullable=False)
     bookmarks = db.relationship('bookmarkDB', backref='user', lazy='dynamic')
 
+    def getTagDict(self):
+        bookmarks = self.bookmarks.all()
+        tagDict = dict()
+        for bookmark in bookmarks:
+            for tag in bookmark.tags.split(','):
+                if tagDict.get(tag):
+                    tagDict[tag] += 1
+                else:
+                    tagDict[tag] = 1
+        return tagDict
+
     def __repr__(self):
         return f'Username: {self.name}'
 
@@ -53,6 +64,10 @@ class userDB(db.Model, UserMixin):
 class tagDB(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text, nullable=False, unique=True, index=True)
+
+    @staticmethod
+    def getTagByName(name):
+        return tagDB.query.filter_by(name=name).first()
 
     @staticmethod
     def get_or_create(name):

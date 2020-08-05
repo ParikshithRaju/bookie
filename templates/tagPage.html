@@ -1,0 +1,13 @@
+{% extends "index.html" %}
+{% block mainContent %}
+<div class="container">
+    <h3>
+        #{{tag.name}}
+    </h3>
+    {% with bookmarks=tag.bookmarks %}
+    {% include "bookmark_list.html" %}
+    {%  endwith %}
+</div>
+{% endblock %}
+{% block recent_bookmarks %}
+{% endblock %}

@@ -22,7 +22,16 @@ def load_user(userid):
 @app.route('/')
 def home():
     if current_user.is_authenticated:
+        tagDict = current_user.getTagDict()
+        sorted_dict = sorted(
+            tagDict.items(),
+            key=lambda x: x[1],
+            reverse=True
+        )
+        most_used_tags_names=sorted_dict[:5]
+        most_used_tags_objects=[tagDB.getTagByName(name[0]) for name in most_used_tags_names]
         return render_template('index.html', bookmarks=current_user.bookmarks.order_by(desc(bookmarkDB.date)).limit(3),
+                               most_used_tags=most_used_tags_objects,
                                user=current_user)
     else:
         return render_template('index.html', user=current_user)
